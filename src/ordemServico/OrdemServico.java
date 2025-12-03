@@ -1,12 +1,16 @@
+package ordemServico;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-import ordemServico.StatusOrdemServico;
 import cliente.Cliente;
 import veiculo.Veiculo;
 import funcionario.Funcionario;
 
-public class OrdemServico {
+public class OrdemServico implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private int idOrdem;
     private Date dataAbertura;
     private Date dataConclusao;
@@ -20,6 +24,10 @@ public class OrdemServico {
     private Cliente cliente;
     private Veiculo veiculo;
     private Funcionario funcionario;
+    
+    // Construtor padrão
+    public OrdemServico() {
+    }
     
     // Construtor
     public OrdemServico(int idOrdem, Cliente cliente, Veiculo veiculo, 
@@ -37,14 +45,19 @@ public class OrdemServico {
         this.valorTotal = calcularValorTotal();
     }
     
-    // Métodos de negócio
-    public static OrdemServico criarOrdemServico(Cliente cliente, Veiculo veiculo, 
-                                                  Funcionario funcionario, 
-                                                  String descricaoProblema, 
-                                                  double valorMaoObra) {
-        int novoId = gerarProximoId();
-        return new OrdemServico(novoId, cliente, veiculo, funcionario, 
-                               descricaoProblema, valorMaoObra);
+    // Construtor alternativo (sem ID)
+    public OrdemServico(Cliente cliente, Veiculo veiculo, 
+                        Funcionario funcionario, String descricaoProblema, 
+                        double valorMaoObra) {
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+        this.funcionario = funcionario;
+        this.descricaoProblema = descricaoProblema;
+        this.valorMaoObra = valorMaoObra;
+        this.dataAbertura = new Date();
+        this.status = StatusOrdemServico.EM_ANALISE;
+        this.valorPecas = 0.0;
+        this.valorTotal = calcularValorTotal();
     }
     
     public double calcularValorTotal() {

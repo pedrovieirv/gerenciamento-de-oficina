@@ -1,7 +1,10 @@
+package ordemServico;
+
 public enum StatusOrdemServico {
     EM_ANALISE("Em Análise"),
     EM_EXECUCAO("Em Execução"),
     CONCLUIDO("Concluído"),
+    ENTREGUE("Entregue"),
     CANCELADO("Cancelado");
 
     private String descricao;
