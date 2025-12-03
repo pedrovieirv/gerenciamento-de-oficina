@@ -1,24 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
+package usuario;
 
-public abstract class Usuario {
+import java.io.Serializable;
+
+public abstract class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private int idUsuario;
     private String nome;
     private String cpf;
     private String email;
     private String senha;
     
-    private static int contadorId = 1;
-    private static List<Usuario> usuarios = new ArrayList<>();
-    
     // Construtor padrão
     public Usuario() {
-        this.idUsuario = contadorId++;
     }
     
     // Construtor completo
     public Usuario(int idUsuario, String nome, String cpf, String email, String senha) {
-        this.idUsuario = idUsuario > 0 ? idUsuario : contadorId++;
+        this.idUsuario = idUsuario;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -27,7 +26,6 @@ public abstract class Usuario {
     
     // Construtor alternativo
     public Usuario(String nome, String cpf, String email, String senha) {
-        this.idUsuario = contadorId++;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -39,6 +37,10 @@ public abstract class Usuario {
         return idUsuario;
     }
     
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -71,19 +73,9 @@ public abstract class Usuario {
         this.senha = senha;
     }
     
-    // Métodos do diagrama
+    // Métodos
     public boolean login(String email, String senha) {
         return this.email.equals(email) && this.senha.equals(senha);
-    }
-    
-    public static List<Usuario> listarUsuarios() {
-        return new ArrayList<>(usuarios);
-    }
-    
-    public static Usuario criarUsuario(String nome, String cpf, String email, String senha) {
-        // Este método deve ser implementado nas subclasses concretas
-        // pois Usuario é abstrata
-        throw new UnsupportedOperationException("Método deve ser implementado na subclasse");
     }
     
     public void verUsuario() {
@@ -99,16 +91,6 @@ public abstract class Usuario {
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-    }
-    
-    public static void desativarUsuario(Usuario usuario) {
-        usuarios.remove(usuario);
-        System.out.println("Usuário " + usuario.getNome() + " desativado com sucesso.");
-    }
-    
-    // Método auxiliar para adicionar usuário à lista
-    protected static void adicionarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
     }
     
     @Override
