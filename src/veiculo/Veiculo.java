@@ -1,14 +1,35 @@
-public class Veiculo {
+package veiculo;
+
+import java.io.Serializable;
+import cliente.Cliente;
+
+public class Veiculo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int idVeiculo;
+    private Cliente cliente;
     private String placa;
     private String modelo;
     private String marca;
     private int ano;
     private String cor;
 
-    public Veiculo(int idVeiculo, String placa, String modelo, String marca, int ano, String cor) {
-        this.idVeiculo = idVeiculo;
+    // Construtor padrão
+    public Veiculo() {
+    }
+
+    // Construtor com Cliente
+    public Veiculo(Cliente cliente, String placa, String modelo, String marca, int ano, String cor) {
+        this.cliente = cliente;
+        this.placa = placa;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.ano = ano;
+        this.cor = cor;
+    }
+
+    // Construtor alternativo (sem cliente)
+    public Veiculo(String placa, String modelo, String marca, int ano, String cor) {
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
@@ -63,5 +84,36 @@ public class Veiculo {
 
     public void setCor(String cor) {
         this.cor = cor;
+    }
+
+    public void verVeiculo() {
+        System.out.println("=== Dados do Veículo ===");
+        System.out.println("ID: " + idVeiculo);
+        System.out.println("Placa: " + placa);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Marca: " + marca);
+        System.out.println("Ano: " + ano);
+        System.out.println("Cor: " + cor);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "idVeiculo=" + idVeiculo +
+                ", cliente=" + (cliente != null ? cliente.getCpf() : "null") +
+                ", placa='" + placa + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", marca='" + marca + '\'' +
+                ", ano=" + ano +
+                ", cor='" + cor + '\'' +
+                '}';
     }
 }
