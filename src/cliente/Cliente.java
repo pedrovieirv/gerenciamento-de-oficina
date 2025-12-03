@@ -1,7 +1,9 @@
-package com.oficina.model;
-import java.util.List;
+package cliente;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int idCliente;
     private String nome;
@@ -10,9 +12,22 @@ public class Cliente {
     private String endereco;
     private String email;
 
+    // Construtor padrão
+    public Cliente() {
+    }
+
     // Construtor
     public Cliente(int idCliente, String nome, String cpf, String telefone, String endereco, String email) {
         this.idCliente = idCliente;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.endereco = endereco;
+        this.email = email;
+    }
+    
+    // Construtor alternativo
+    public Cliente(String nome, String cpf, String telefone, String endereco, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -70,34 +85,38 @@ public class Cliente {
     }
 
     // Métodos
-    public void criarCliente(String nome, String cpf, String telefone, String endereco, String email) {
-       
-    }
-
     public void verCliente() {
-       
+        System.out.println("=== Dados do Cliente ===");
+        System.out.println("ID: " + idCliente);
+        System.out.println("Nome: " + nome);
+        System.out.println("CPF: " + cpf);
+        System.out.println("Telefone: " + telefone);
+        System.out.println("Endereço: " + endereco);
+        System.out.println("Email: " + email);
     }
 
-    public void editarCliente(String nome, String cpf, String telefone, String endereco, String email) {
-       
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
-    public void excluirCliente(Cliente cliente) {
-       
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return idCliente == cliente.idCliente;
     }
 
-    public List<Cliente> listarClientes() {
-       
-        return null; 
-    }
-
-    public List<OrdemServico> consultarHistorico() {
-        
-        return null; 
-    }
-
-    public Cliente buscarCliente(String cpf) {
-       
-        return null;
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(idCliente);
     }
 }
